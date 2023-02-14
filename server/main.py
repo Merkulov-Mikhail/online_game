@@ -73,7 +73,10 @@ class Server:
                         self._connections[key].move(ev, collision_sprites)
                     if ev // 100 == EVENTS.KEYS // 100:
                         self._connections[key].key_pressed(ev)
+                    if ev // 100 == EVENTS.SPECIAL_MODIFICATIONS // 100:
+                        self._connections[key].modification(ev)
             self._connections[key].sprinting = False
+            self._connections[key].diagonal_movement = False
 
     def authentication(self, con, ad):
         while key := create_key().hexdigest():

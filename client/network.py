@@ -14,8 +14,14 @@ def key_required(func):
 
 
 class Network:
-    def __init__(self):
-        self._conn = socket.create_connection(address=(NETWORK.ADDRESS, NETWORK.PORT))
+    def __init__(self, address=None, port=None):
+        if address is None:
+            self._conn = socket.create_connection(address=(NETWORK.ADDRESS, NETWORK.PORT))
+        else:
+            if port is None:
+                self._conn = socket.create_connection(address=(address, NETWORK.PORT))
+            else:
+                self._conn = socket.create_connection(address=(address, port))
         self._get_and_set_key()
 
     def _get_and_set_key(self):

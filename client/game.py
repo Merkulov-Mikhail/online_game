@@ -30,6 +30,11 @@ class Player(pygame.sprite.Sprite):
         else:
             val = PLAYER.MOVEMENT_SPEED
 
+        if keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d]):
+            self.events.append(EVENTS.DIAGONAL_MOVEMENT)
+        elif keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d]):
+            self.events.append(EVENTS.DIAGONAL_MOVEMENT)
+
         # y value changing
         if keys[pygame.K_w]:
             self.events.append(EVENTS.UP)

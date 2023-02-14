@@ -50,7 +50,10 @@ class EVENTS:
         So I put KEY_SHIFT earlier, than UP, DOWN, LEFT, RIGHT
     """
     KEYS = 3100
-    KEY_SHIFT = KEYS + 1        # Player is sprinting
+    KEY_SHIFT = KEYS + 1              # Player is sprinting
+
+    SPECIAL_MODIFICATIONS = 3200
+    DIAGONAL_MOVEMENT = SPECIAL_MODIFICATIONS + 1     # If Player moves diagonally
 
     DIRECTIONS = 3000
     UP = DIRECTIONS + 1               # Player moves upwards
@@ -77,6 +80,7 @@ class PLAYER:
     PLAYER_EYES_SIZE = 20
     MOVEMENT_SPEED = 5
     SPRINT_MULTIPLIER = 1.7
+    DIAGONAL_MULTIPLIER = 0.7
 
 
 class GEOMETRY:
