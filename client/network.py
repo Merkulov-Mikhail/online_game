@@ -34,6 +34,7 @@ class Network:
         if message_type == NETWORK.CONTENT_TYPES.UPDATE:
             dat["type"] = NETWORK.CONTENT_TYPES.UPDATE
             dat["events"] = kwargs["events"]
+            dat["angle"] = kwargs["angle"]
         self._conn.send(bytes(json.dumps(dat), encoding='utf-8'))
 
     @key_required

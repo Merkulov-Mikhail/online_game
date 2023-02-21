@@ -14,7 +14,7 @@ class NETWORK:
     """
     Contains most information about network - address, using port, possible types of package
     """
-    ADDRESS = "10.0.26.84"
+    ADDRESS = "127.0.0.1"
     PORT = 5050
     AUTH_STRING = "AUTH_KEY"
 

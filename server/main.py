@@ -66,6 +66,7 @@ class Server:
             return
         key = json_data[NETWORK.AUTH_STRING]
         if NETWORK.CONTENT_TYPES.UPDATE == json_data["type"]:
+            self._connections[key].angle = json_data["angle"]
             current_events = set(json_data["events"])
             for ev in all_events:
                 if ev in current_events:

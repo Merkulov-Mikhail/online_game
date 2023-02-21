@@ -32,8 +32,10 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d]):
             self.events.append(EVENTS.DIAGONAL_MOVEMENT)
+            val *= PLAYER.DIAGONAL_MULTIPLIER
         elif keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d]):
             self.events.append(EVENTS.DIAGONAL_MOVEMENT)
+            val *= PLAYER.DIAGONAL_MULTIPLIER
 
         # y value changing
         if keys[pygame.K_w]:
@@ -60,6 +62,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += val
             if pygame.sprite.spritecollideany(self, collision_sprites):
                 self.rect.x -= val
+        self.x, self.y = self.rect.x, self.rect.y
 
     def mouse_move(self, pos):
         x1, y1 = pos[0], 0
@@ -72,42 +75,71 @@ def main():
     all_sprites.add(pl)
     clock = pygame.time.Clock()
     net = Network()
+    angle = 0
     while True:
         screen.fill(COLORS.DARKNESS_COLOR)
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 return
             if ev.type == pygame.MOUSEMOTION:
-                pl.mouse_move(ev.pos)
-        net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events)
+                angle = calculate_angle(pl, ev.pos)
+        net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events, angle=angle)
         pl.events.clear()
         obj = net.receive_data()
         if obj['type'] == NETWORK.CONTENT_TYPES.UPDATE:
             for entity in obj['entities']:
-                draw_entity(screen, list(map(int, entity.split(';'))))
+                draw_entity(screen, list(map(float, entity.split(';'))))
         pl.update()
         pygame.display.flip()
         clock.tick(60)
 
 
+def calculate_angle(player, cursor):
+    global g
+    x, y = player.x + PLAYER.PLAYER_SIZE / 2, player.y + PLAYER.PLAYER_SIZE / 2
+    x1, y1 = cursor[0], cursor[1]
+    print(f"{x=}, {y=}")
+    print(f"{x1=}, {y1=}")
+    print(f"{g=}")
+    ab = abs(y1 - y)
+    ac = abs(x1 - x)
+    try:
+        angle = math.atan(ab / ac) / math.pi * 180
+    except ZeroDivisionError:
+        angle = 0
+    if x > x1 and y > y1:
+        return 180 - angle
+    if x > x1 and y < y1:
+        return 180 + angle
+    if x < x1 and y > y1:
+        return angle
+    if x < x1 and y < y1:
+        return 360 - angle
+    return angle
+
+
 def draw_entity(sc, ent):
+    global g
+    g = ent
     typ = ent[0]
     if typ == ENTITIES.PLAYER_ID:
         pygame.draw.ellipse(sc, COLORS.PLAYER_BODY, (ent[1], ent[2], PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE))
         ang = ent[3]
         x1, y1 = PLAYER.PLAYER_SIZE / 2 + ent[1], PLAYER.PLAYER_SIZE / 2 + ent[2]
+        r_okr = 0.3 * PLAYER.PLAYER_SIZE
         pygame.draw.ellipse(sc, COLORS.PLAYER_EYES,
-                            (x1 + 0.25 * PLAYER.PLAYER_SIZE * math.sin((ang - 100) * math.pi / 180),
-                             y1 + 0.25 * PLAYER.PLAYER_SIZE * math.cos((ang - 30) * math.pi / 180),
+                            (x1 + r_okr * math.sin(ang * math.pi / 180),
+                             y1 + r_okr * math.cos(ang * math.pi / 180),
                              PLAYER.PLAYER_EYES_SIZE,
                              PLAYER.PLAYER_EYES_SIZE))
         pygame.draw.ellipse(sc, COLORS.PLAYER_EYES,
-                            (x1 + 0.25 * PLAYER.PLAYER_SIZE * math.sin((ang + 30) * math.pi / 180),
-                             y1 + 0.25 * PLAYER.PLAYER_SIZE * math.cos((ang + 30) * math.pi / 180),
+                            (x1 + r_okr * math.sin(ang * math.pi / 180),
+                             y1 + r_okr * math.cos(ang * math.pi / 180),
                              PLAYER.PLAYER_EYES_SIZE,
                              PLAYER.PLAYER_EYES_SIZE))
 
 
+g = 0
 pygame.init()
 main()
 pygame.quit()
