@@ -67,7 +67,6 @@ class Player(pygame.sprite.Sprite):
     def mouse_move(self, pos):
         x1, y1 = pos[0], 0
         x2, y2 = pos[0] - self.rect.x, pos[1] - self.rect.y
-        print(x1, y1, x2, y2)
 
 
 def main():
@@ -98,9 +97,6 @@ def calculate_angle(player, cursor):
     global g
     x, y = player.x + PLAYER.PLAYER_SIZE / 2, player.y + PLAYER.PLAYER_SIZE / 2
     x1, y1 = cursor[0], cursor[1]
-    print(f"{x=}, {y=}")
-    print(f"{x1=}, {y1=}")
-    print(f"{g=}")
     ab = abs(y1 - y)
     ac = abs(x1 - x)
     try:
@@ -119,24 +115,23 @@ def calculate_angle(player, cursor):
 
 
 def draw_entity(sc, ent):
-    global g
-    g = ent
     typ = ent[0]
     if typ == ENTITIES.PLAYER_ID:
-        pygame.draw.ellipse(sc, COLORS.PLAYER_BODY, (ent[1], ent[2], PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE))
-        ang = ent[3]
-        x1, y1 = PLAYER.PLAYER_SIZE / 2 + ent[1], PLAYER.PLAYER_SIZE / 2 + ent[2]
-        r_okr = 0.3 * PLAYER.PLAYER_SIZE
+        pygame.draw.ellipse(sc, COLORS.PLAYER_BORDER, (ent[1], ent[2], PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE))
+        pygame.draw.ellipse(sc, COLORS.PLAYER_BODY, (ent[1] + PLAYER.PLAYER_SIZE * 0.1, ent[2] + PLAYER.PLAYER_SIZE * 0.1,
+                                                     PLAYER.PLAYER_SIZE * 0.8, PLAYER.PLAYER_SIZE * 0.8))
+        ang = ent[3] + 45
+        radius = 0.3 * PLAYER.PLAYER_SIZE
         pygame.draw.ellipse(sc, COLORS.PLAYER_EYES,
-                            (x1 + r_okr * math.sin(ang * math.pi / 180),
-                             y1 + r_okr * math.cos(ang * math.pi / 180),
-                             PLAYER.PLAYER_EYES_SIZE,
-                             PLAYER.PLAYER_EYES_SIZE))
+                            (ent[1] + PLAYER.PLAYER_SIZE / 2 + math.sin(ang * math.pi / 180) * radius - PLAYER.PLAYER_EYES_RADIUS,
+                             ent[2] + PLAYER.PLAYER_SIZE / 2 + math.cos(ang * math.pi / 180) * radius - PLAYER.PLAYER_EYES_RADIUS,
+                             PLAYER.PLAYER_EYES_RADIUS * 2,
+                             PLAYER.PLAYER_EYES_RADIUS * 2))
         pygame.draw.ellipse(sc, COLORS.PLAYER_EYES,
-                            (x1 + r_okr * math.sin(ang * math.pi / 180),
-                             y1 + r_okr * math.cos(ang * math.pi / 180),
-                             PLAYER.PLAYER_EYES_SIZE,
-                             PLAYER.PLAYER_EYES_SIZE))
+                            (ent[1] + PLAYER.PLAYER_SIZE / 2 + math.sin((ang + 90) * math.pi / 180) * radius - PLAYER.PLAYER_EYES_RADIUS,
+                             ent[2] + PLAYER.PLAYER_SIZE / 2 + math.cos((ang + 90) * math.pi / 180) * radius - PLAYER.PLAYER_EYES_RADIUS,
+                             PLAYER.PLAYER_EYES_RADIUS * 2,
+                             PLAYER.PLAYER_EYES_RADIUS * 2))
 
 
 g = 0

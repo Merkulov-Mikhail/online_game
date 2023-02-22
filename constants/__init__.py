@@ -77,7 +77,7 @@ class PLAYER:
     Contains description of the player
     """
     PLAYER_SIZE = 100
-    PLAYER_EYES_SIZE = 20
+    PLAYER_EYES_RADIUS = PLAYER_SIZE * 0.1125
     MOVEMENT_SPEED = 5
     SPRINT_MULTIPLIER = 1.7
     DIAGONAL_MULTIPLIER = 0.7
@@ -98,8 +98,9 @@ class COLORS:
     """
     Contains colors
     """
-    PLAYER_BODY = "#5d5d5d"
-    PLAYER_EYES = "#2a2a2a"
+    PLAYER_BORDER = "#282828"
+    PLAYER_BODY = "#1c292a"
+    PLAYER_EYES = "#000930"
     WHITE = "#FFFFFF"
     DARKNESS_COLOR = "#333333"
 
