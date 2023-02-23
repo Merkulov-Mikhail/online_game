@@ -12,61 +12,31 @@ collision_sprites = pygame.sprite.Group()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x=0, y=0):
         super().__init__()
-        self.x = x
-        self.y = y
         self.sprinting = False
         self.events = list()
-        self.rect = pygame.Rect(self.x, self.y, PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE)
+        self.rect = pygame.Rect(x, y, PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE)
 
     def update(self):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LSHIFT]:
-            self.sprinting = True
             self.events.append(EVENTS.KEY_SHIFT)
 
-        if self.sprinting:
-            val = PLAYER.MOVEMENT_SPEED * PLAYER.SPRINT_MULTIPLIER
-        else:
-            val = PLAYER.MOVEMENT_SPEED
-
-        if keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d]):
+        if (keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d])) or (keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d])):
             self.events.append(EVENTS.DIAGONAL_MOVEMENT)
-            val *= PLAYER.DIAGONAL_MULTIPLIER
-        elif keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d]):
-            self.events.append(EVENTS.DIAGONAL_MOVEMENT)
-            val *= PLAYER.DIAGONAL_MULTIPLIER
 
-        # y value changing
         if keys[pygame.K_w]:
             self.events.append(EVENTS.UP)
-            self.rect.y -= val
-            if pygame.sprite.spritecollideany(self, collision_sprites):
-                self.rect.y += val
 
         if keys[pygame.K_s]:
             self.events.append(EVENTS.DOWN)
-            self.rect.y += val
-            if pygame.sprite.spritecollideany(self, collision_sprites):
-                self.rect.y -= val
 
         # x value changing
         if keys[pygame.K_a]:
             self.events.append(EVENTS.LEFT)
-            self.rect.x -= val
-            if pygame.sprite.spritecollideany(self, collision_sprites):
-                self.rect.x += val
 
         if keys[pygame.K_d]:
             self.events.append(EVENTS.RIGHT)
-            self.rect.x += val
-            if pygame.sprite.spritecollideany(self, collision_sprites):
-                self.rect.x -= val
-        self.x, self.y = self.rect.x, self.rect.y
-
-    def mouse_move(self, pos):
-        x1, y1 = pos[0], 0
-        x2, y2 = pos[0] - self.rect.x, pos[1] - self.rect.y
 
 
 def main():
@@ -75,19 +45,26 @@ def main():
     clock = pygame.time.Clock()
     net = Network()
     angle = 0
+    mouse_position = 0, 0
     while True:
         screen.fill(COLORS.DARKNESS_COLOR)
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 return
             if ev.type == pygame.MOUSEMOTION:
-                angle = calculate_angle(pl, ev.pos)
+                mouse_position = ev.pos
+        angle = calculate_angle(pl, mouse_position)
         net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events, angle=angle)
         pl.events.clear()
         obj = net.receive_data()
-        if obj['type'] == NETWORK.CONTENT_TYPES.UPDATE:
-            for entity in obj['entities']:
-                draw_entity(screen, list(map(float, entity.split(';'))))
+        if obj is not None:
+            if obj['type'] == NETWORK.CONTENT_TYPES.UPDATE:
+                for entity in obj['entities']:
+                    draw_entity(screen, list(map(float, entity.split(';'))))
+                dat = obj['state'].split(';')
+                pl.rect.x = float(dat[1])
+                pl.rect.y = float(dat[2])
+
         pl.update()
         pygame.display.flip()
         clock.tick(60)
@@ -95,7 +72,7 @@ def main():
 
 def calculate_angle(player, cursor):
     global g
-    x, y = player.x + PLAYER.PLAYER_SIZE / 2, player.y + PLAYER.PLAYER_SIZE / 2
+    x, y = player.rect.x + PLAYER.PLAYER_SIZE / 2, player.rect.y + PLAYER.PLAYER_SIZE / 2
     x1, y1 = cursor[0], cursor[1]
     ab = abs(y1 - y)
     ac = abs(x1 - x)

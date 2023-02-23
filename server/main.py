@@ -43,12 +43,13 @@ class Server:
                 if cnt == 10:
                     break
                 continue
-            self._update(json_data=data)
-            package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": []}
+            key = self._update(json_data=data)
+
+            all_sprites_package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": [], "state": str(self._connections[key])}
             for value in self._connections.values():
-                package["entities"].append(str(value))
+                all_sprites_package["entities"].append(str(value))
             try:
-                connection.send(bytes(json.dumps(package), encoding='utf-8'))
+                connection.send(bytes(json.dumps(all_sprites_package), encoding='utf-8'))
             except Exception as e:
                 print(f"[ERROR] An error acquired while sending data to {address[0]}")
                 print(e)
@@ -56,6 +57,7 @@ class Server:
                 if cnt == 10:
                     break
             cnt = 0
+
         print(f"[INFO] Breaking connection with {address}")
         return
 
@@ -78,6 +80,7 @@ class Server:
                         self._connections[key].modification(ev)
             self._connections[key].sprinting = False
             self._connections[key].diagonal_movement = False
+        return key
 
     def authentication(self, con, ad):
         while key := create_key().hexdigest():
