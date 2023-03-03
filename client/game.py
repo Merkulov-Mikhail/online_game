@@ -1,18 +1,20 @@
 import pygame
 import math
-from constants import PLAYER, COLORS, GEOMETRY, SCREEN, EVENTS, NETWORK, ENTITIES
+from constants import PLAYER, COLORS, SCREEN, EVENTS, NETWORK, ENTITIES, BULLET
 from network import Network
 
 
 screen = pygame.display.set_mode((SCREEN.WINDOW_WIDTH, SCREEN.WINDOW_HEIGHT))
 all_sprites = pygame.sprite.Group()
 collision_sprites = pygame.sprite.Group()
+game_status = False
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x=0, y=0):
         super().__init__()
         self.sprinting = False
+        self.shooting = 3
         self.events = list()
         self.rect = pygame.Rect(x, y, PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE)
 
@@ -21,6 +23,12 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_LSHIFT]:
             self.events.append(EVENTS.KEY_SHIFT)
+
+        if self.shooting == 1:
+            self.events.append(EVENTS.LEFT_MOUSE_DOWN)
+        elif self.shooting == 2:
+            self.shooting = 3
+            self.events.append(EVENTS.LEFT_MOUSE_UP)
 
         if (keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d])) or (keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d])):
             self.events.append(EVENTS.DIAGONAL_MOVEMENT)
@@ -44,7 +52,6 @@ def main():
     all_sprites.add(pl)
     clock = pygame.time.Clock()
     net = Network()
-    angle = 0
     mouse_position = 0, 0
     while True:
         screen.fill(COLORS.DARKNESS_COLOR)
@@ -53,6 +60,12 @@ def main():
                 return
             if ev.type == pygame.MOUSEMOTION:
                 mouse_position = ev.pos
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if ev.button == 1:
+                    pl.shooting = 1     # started shooting
+            if ev.type == pygame.MOUSEBUTTONUP:
+                if ev.button == 1:
+                    pl.shooting = 2     # Stopped shooting
         angle = calculate_angle(pl, mouse_position)
         net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events, angle=angle)
         pl.events.clear()
@@ -68,6 +81,15 @@ def main():
         pl.update()
         pygame.display.flip()
         clock.tick(60)
+
+
+def loading_screen():
+    while True:
+        for ev in pygame.event.get():
+            if ev.type == pygame.MOUSEBUTTONUP:
+                print(ev.pos)
+
+        pygame.display.flip()
 
 
 def calculate_angle(player, cursor):
@@ -109,6 +131,9 @@ def draw_entity(sc, ent):
                              ent[2] + PLAYER.PLAYER_SIZE / 2 + math.cos((ang + 90) * math.pi / 180) * radius - PLAYER.PLAYER_EYES_RADIUS,
                              PLAYER.PLAYER_EYES_RADIUS * 2,
                              PLAYER.PLAYER_EYES_RADIUS * 2))
+    if typ == ENTITIES.BULLET_ID:
+        pygame.draw.ellipse(sc, COLORS.BULLET,
+                            (ent[1], ent[2], BULLET.BULLET_SIZE, BULLET.BULLET_SIZE))
 
 
 g = 0

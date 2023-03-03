@@ -15,7 +15,8 @@ class NETWORK:
     Contains most information about network - address, using port, possible types of package
     """
     ADDRESS = "127.0.0.1"
-    PORT = 5050
+    PORT = 5052
+    TPS = 30
     AUTH_STRING = "AUTH_KEY"
 
     class CONTENT_TYPES:
@@ -26,6 +27,10 @@ class NETWORK:
         BULLET_SHOT = CONNECTIONS + 4
 
 
+class GUNS:
+    ASSAULT_RIFLE_FIRE_RATE = 2
+
+
 class ENTITIES:
     """
     Contains IDs of every possible entity in the game
@@ -33,6 +38,11 @@ class ENTITIES:
     IDS = 2000
     PLAYER_ID = IDS + 1
     BULLET_ID = IDS + 2
+
+
+class BULLET:
+    BULLET_SIZE = 10
+    BULLET_SPEED = 15
 
 
 class EVENTS:
@@ -52,6 +62,8 @@ class EVENTS:
     """
     KEYS = 3100
     KEY_SHIFT = KEYS + 1              # Player is sprinting
+    LEFT_MOUSE_DOWN = KEYS + 2        # Player started shooting
+    LEFT_MOUSE_UP = KEYS + 3          # Player stopped shooting
 
     SPECIAL_MODIFICATIONS = 3200
     DIAGONAL_MOVEMENT = SPECIAL_MODIFICATIONS + 1     # If Player moves diagonally
@@ -70,7 +82,6 @@ class EVENTS:
 
 class GAME_DEFAULTS:
     DEBUG = True
-    BULLET_DEFAULT_SPEED = 50
 
 
 class PLAYER:
@@ -102,6 +113,7 @@ class COLORS:
     PLAYER_BORDER = "#282828"
     PLAYER_BODY = "#1c292a"
     PLAYER_EYES = "#000930"
+    BULLET = "#808000"
     WHITE = "#FFFFFF"
     DARKNESS_COLOR = "#333333"
 

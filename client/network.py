@@ -23,6 +23,7 @@ class Network:
             else:
                 self._conn = socket.create_connection(address=(address, port))
         self._get_and_set_key()
+        self._mult = 1
 
     def _get_and_set_key(self):
         r = self._conn.recv(1024).decode(encoding='utf-8')
@@ -38,9 +39,9 @@ class Network:
         self._conn.send(bytes(json.dumps(dat), encoding='utf-8'))
 
     @key_required
-    def receive_data(self, amount=1024):
+    def receive_data(self, amount=2 ** 10):
         try:
-            ans = self._conn.recv(amount)
+            ans = self._conn.recv(amount * self._mult)
         except OSError:
             print("Connection to server lost")
             return None
@@ -48,5 +49,7 @@ class Network:
             dat = json.loads(ans)
         except json.decoder.JSONDecodeError:
             print("Incorrect server answer")
+            self._mult *= 2
+            print(ans)
             return None
         return dat

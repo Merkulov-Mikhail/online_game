@@ -1,13 +1,17 @@
 import socket
 import json
-from constants import NETWORK
+import pygame.time
+from constants import NETWORK, GUNS
 from threading import Thread
 from random import randint
 from hashlib import sha256
 from serverEntities import *
 
 
+game_config = [0]
 all_events = []
+players = pygame.sprite.Group()
+bullets = pygame.sprite.Group()
 collision_sprites = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 for ev in EVENTS.__dict__:
@@ -48,6 +52,21 @@ class Server:
             all_sprites_package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": [], "state": str(self._connections[key])}
             for value in self._connections.values():
                 all_sprites_package["entities"].append(str(value))
+            for bul in bullets:
+                bul.move()
+                sprite = pygame.sprite.spritecollideany(bul, players)
+                if sprite:
+                    if sprite.id() == ENTITIES.BULLET_ID:
+                        bullets.remove(bul)
+                        bullets.remove(sprite)
+                    if sprite.id() == ENTITIES.PLAYER_ID:
+                        if bul.can_damage:
+                            sprite.take_damage()
+                            bullets.remove(bul)
+                else:
+                    if not bul.can_damage:
+                        bul.can_damage = True
+                all_sprites_package["entities"].append(str(bul))
             try:
                 connection.send(bytes(json.dumps(all_sprites_package), encoding='utf-8'))
             except Exception as e:
@@ -80,17 +99,27 @@ class Server:
                         self._connections[key].modification(ev)
             self._connections[key].sprinting = False
             self._connections[key].diagonal_movement = False
+        made_shot = self._connections[key].fire(game_config[0], GUNS.ASSAULT_RIFLE_FIRE_RATE)
+        if made_shot:
+            bul = Bullet(*self._connections[key].get_cords(), angle=self._connections[key].angle)
+            bullets.add(bul)
         return key
 
     def authentication(self, con, ad):
         while key := create_key().hexdigest():
             if key not in self._connections:
-                self._connections[key] = Server_Player(0, 0)  # TODO rework this shit
+                self._connections[key] = Server_Player(0, 0, gr=players)  # TODO rework this shit
                 break
         package = {"type": NETWORK.CONTENT_TYPES.AUTH, NETWORK.AUTH_STRING: key}
         con.send(bytes(json.dumps(package), encoding='utf-8'))
         _ = Thread(target=self._connection, args=(con, ad))
         _.start()
+
+    def loop(self):
+        cl = pygame.time.Clock()
+        while True:
+            game_config[0] += 1
+            cl.tick(NETWORK.TPS)
 
     def start(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -100,6 +129,8 @@ class Server:
             print(e)
         print(sock)
         sock.listen()
+        _ = Thread(target=self.loop)
+        _.start()
         print("Waiting for a connection, Server Started")
         while self._running:
             conn, addr = sock.accept()
