@@ -1,6 +1,5 @@
 import pygame
 import math
-import random
 from constants import PLAYER, ENTITIES, EVENTS, BULLET
 
 
@@ -85,7 +84,7 @@ class Server_Player(pygame.sprite.Sprite):
         return f"{ENTITIES.PLAYER_ID};{self.rect.x};{self.rect.y};{self.angle};{self.health}"
 
 
-class Bullet(pygame.sprite.Sprite):
+class Server_Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, angle, damage=BULLET.BASIC_BULLET_DAMAGE, gr=None):
         if gr is not None:
             super().__init__(gr)
