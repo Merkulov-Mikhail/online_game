@@ -59,14 +59,17 @@ class Server:
             for value in self._connections.values():
                 all_sprites_package["entities"].append(str(value))
             for bul in bullets:
+                bul: Server_Bullet
                 bul.move()
                 sprite = pygame.sprite.spritecollideany(bul, players)
                 # sprite can be None or a class from serverSprites
                 if sprite:
                     if sprite.id() == ENTITIES.BULLET_ID:
+                        sprite: Server_Bullet
                         bullets.remove(bul)
                         bullets.remove(sprite)
                     if sprite.id() == ENTITIES.PLAYER_ID:
+                        sprite: Server_Player
                         if bul.can_damage:
                             sprite.take_damage(bul.get_damage())
                             if not sprite.is_alive():
@@ -111,7 +114,7 @@ class Server:
                 self._connections[key].diagonal_movement = False
             made_shot = self._connections[key].fire(game_config[0], GUNS.ASSAULT_RIFLE_FIRE_RATE)
             if made_shot:
-                bul = Bullet(*self._connections[key].get_cords(), angle=self._connections[key].angle)
+                bul = Server_Bullet(*self._connections[key].get_cords(), angle=self._connections[key].angle)
                 bullets.add(bul)
         return key
 
