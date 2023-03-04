@@ -34,6 +34,13 @@ class Server:
         while True:
             try:
                 response = connection.recv(1024 * 2 ** 4)
+            except Exception as e:
+                print(f"[WARNING] Error in connection {e}")
+                cnt += 1
+                if cnt == 10:
+                    break
+                continue
+            try:
                 data = json.loads(response.decode(encoding='utf-8'))
             except json.decoder.JSONDecodeError:
                 print(f"[WARNING] Got incorrect user({address[0]}) response: {response}")
@@ -48,20 +55,22 @@ class Server:
                     break
                 continue
             key = self._update(json_data=data)
-
             all_sprites_package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": [], "state": str(self._connections[key])}
             for value in self._connections.values():
                 all_sprites_package["entities"].append(str(value))
             for bul in bullets:
                 bul.move()
                 sprite = pygame.sprite.spritecollideany(bul, players)
+                # sprite can be None or a class from serverSprites
                 if sprite:
                     if sprite.id() == ENTITIES.BULLET_ID:
                         bullets.remove(bul)
                         bullets.remove(sprite)
                     if sprite.id() == ENTITIES.PLAYER_ID:
                         if bul.can_damage:
-                            sprite.take_damage()
+                            sprite.take_damage(bul.get_damage())
+                            if not sprite.is_alive():
+                                players.remove(sprite)
                             bullets.remove(bul)
                 else:
                     if not bul.can_damage:
@@ -86,23 +95,24 @@ class Server:
         if json_data[NETWORK.AUTH_STRING] not in self._connections:  # if key is not correct
             return
         key = json_data[NETWORK.AUTH_STRING]
-        if NETWORK.CONTENT_TYPES.UPDATE == json_data["type"]:
-            self._connections[key].angle = json_data["angle"]
-            current_events = set(json_data["events"])
-            for ev in all_events:
-                if ev in current_events:
-                    if ev // 100 == EVENTS.DIRECTIONS // 100:
-                        self._connections[key].move(ev, collision_sprites)
-                    if ev // 100 == EVENTS.KEYS // 100:
-                        self._connections[key].key_pressed(ev)
-                    if ev // 100 == EVENTS.SPECIAL_MODIFICATIONS // 100:
-                        self._connections[key].modification(ev)
-            self._connections[key].sprinting = False
-            self._connections[key].diagonal_movement = False
-        made_shot = self._connections[key].fire(game_config[0], GUNS.ASSAULT_RIFLE_FIRE_RATE)
-        if made_shot:
-            bul = Bullet(*self._connections[key].get_cords(), angle=self._connections[key].angle)
-            bullets.add(bul)
+        if self._connections[key].is_alive():
+            if NETWORK.CONTENT_TYPES.UPDATE == json_data["type"]:
+                self._connections[key].angle = json_data["angle"]
+                current_events = set(json_data["events"])
+                for ev in all_events:
+                    if ev in current_events:
+                        if ev // 100 == EVENTS.DIRECTIONS // 100:
+                            self._connections[key].move(ev, collision_sprites)
+                        if ev // 100 == EVENTS.KEYS // 100:
+                            self._connections[key].key_pressed(ev)
+                        if ev // 100 == EVENTS.SPECIAL_MODIFICATIONS // 100:
+                            self._connections[key].modification(ev)
+                self._connections[key].sprinting = False
+                self._connections[key].diagonal_movement = False
+            made_shot = self._connections[key].fire(game_config[0], GUNS.ASSAULT_RIFLE_FIRE_RATE)
+            if made_shot:
+                bul = Bullet(*self._connections[key].get_cords(), angle=self._connections[key].angle)
+                bullets.add(bul)
         return key
 
     def authentication(self, con, ad):
@@ -116,6 +126,10 @@ class Server:
         _.start()
 
     def loop(self):
+        """
+        Game logic bases on ticks
+        For example - fire rate depends on ticks, basic gun has delay of 1 tick, so every second tick player can shoot
+        """
         cl = pygame.time.Clock()
         while True:
             game_config[0] += 1

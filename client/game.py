@@ -116,6 +116,9 @@ def calculate_angle(player, cursor):
 def draw_entity(sc, ent):
     typ = ent[0]
     if typ == ENTITIES.PLAYER_ID:
+        # If player is dead, we do not show him
+        if int(ent[4]) == 0:
+            return
         pygame.draw.ellipse(sc, COLORS.PLAYER_BORDER, (ent[1], ent[2], PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE))
         pygame.draw.ellipse(sc, COLORS.PLAYER_BODY, (ent[1] + PLAYER.PLAYER_SIZE * 0.1, ent[2] + PLAYER.PLAYER_SIZE * 0.1,
                                                      PLAYER.PLAYER_SIZE * 0.8, PLAYER.PLAYER_SIZE * 0.8))

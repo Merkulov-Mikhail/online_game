@@ -16,7 +16,7 @@ class NETWORK:
     """
     ADDRESS = "127.0.0.1"
     PORT = 5052
-    TPS = 30
+    TPS = 10
     AUTH_STRING = "AUTH_KEY"
 
     class CONTENT_TYPES:
@@ -43,6 +43,8 @@ class ENTITIES:
 class BULLET:
     BULLET_SIZE = 10
     BULLET_SPEED = 15
+
+    BASIC_BULLET_DAMAGE = 20
 
 
 class EVENTS:

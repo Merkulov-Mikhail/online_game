@@ -13,8 +13,9 @@ class Server_Player(pygame.sprite.Sprite):
             super().__init__(gr)
         else:
             super().__init__()
+
         self.rect = pygame.Rect(x, y, PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE)
-        self.angle = random.randint(0, 360)
+        self.angle = angle
         self.health = health
         self.shooting = False
         self.sprinting = False
@@ -60,8 +61,12 @@ class Server_Player(pygame.sprite.Sprite):
         if key == EVENTS.LEFT_MOUSE_UP:
             self.shooting = False
 
-    def take_damage(self):
-        return
+    def take_damage(self, damage_value):
+        self.health -= damage_value
+        self.health = max(0, self.health)
+
+    def is_alive(self):
+        return bool(self.health)
 
     def get_cords(self):
         return self.rect.x, self.rect.y
@@ -81,11 +86,12 @@ class Server_Player(pygame.sprite.Sprite):
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, angle, gr=None):
+    def __init__(self, x, y, angle, damage=BULLET.BASIC_BULLET_DAMAGE, gr=None):
         if gr is not None:
             super().__init__(gr)
         else:
             super().__init__()
+        self._damage = damage
         self.rect = pygame.Rect(x + PLAYER.PLAYER_SIZE / 2, y + PLAYER.PLAYER_SIZE / 2, BULLET.BULLET_SIZE, BULLET.BULLET_SIZE)
         self.angle = angle
         self.spawn_point = x + PLAYER.PLAYER_SIZE / 2, y + PLAYER.PLAYER_SIZE / 2
@@ -93,6 +99,9 @@ class Bullet(pygame.sprite.Sprite):
 
     def id(self):
         return ENTITIES.BULLET_ID
+
+    def get_damage(self):
+        return self._damage
 
     def move(self):
         self.rect.x += math.cos((-self.angle) * math.pi / 180) * BULLET.BULLET_SPEED
