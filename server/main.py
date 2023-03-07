@@ -61,6 +61,12 @@ class Server:
             for bul in bullets:
                 bul: Server_Bullet
                 bul.move()
+                if abs(bul.rect.x) >= 90000:
+                    bullets.remove(bul)
+                    continue
+                if abs(bul.rect.y) >= 90000:
+                    bullets.remove(bul)
+                    continue
                 sprite = pygame.sprite.spritecollideany(bul, players)
                 # sprite can be None or a class from serverSprites
                 if sprite:
