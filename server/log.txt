@@ -1,0 +1,334 @@
+[INFO] Successfully created connection with ('127.0.0.1', 50979)!
+[INFO] Successfully created connection with ('127.0.0.1', 50980)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 50980)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 50979)
+[INFO] Successfully created connection with ('127.0.0.1', 50981)!
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[WARNING] Error in connection [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+[INFO] Breaking connection with ('127.0.0.1', 50981)
+[INFO] Successfully created connection with ('127.0.0.1', 51075)!
+[INFO] Successfully created connection with ('127.0.0.1', 51080)!
+[INFO] Successfully created connection with ('127.0.0.1', 51101)!
+[WinError 10048] Обычно разрешается только одно использование адреса сокета (протокол/сетевой адрес/порт)
+[WinError 10048] Обычно разрешается только одно использование адреса сокета (протокол/сетевой адрес/порт)
+[INFO] Successfully created connection with ('127.0.0.1', 51107)!
+[INFO] Successfully created connection with ('127.0.0.1', 51120)!
+[INFO] Successfully created connection with ('127.0.0.1', 51127)!
+[INFO] Successfully created connection with ('127.0.0.1', 51133)!
+[INFO] Successfully created connection with ('127.0.0.1', 51143)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51133)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51143)
+[INFO] Successfully created connection with ('127.0.0.1', 51171)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51171)
+[INFO] Successfully created connection with ('127.0.0.1', 51486)!
+[INFO] Successfully created connection with ('127.0.0.1', 51568)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51568)
+[INFO] Successfully created connection with ('127.0.0.1', 51600)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51600)
+[INFO] Successfully created connection with ('127.0.0.1', 51606)!
+[INFO] Successfully created connection with ('127.0.0.1', 51612)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51606)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51612)
+[INFO] Successfully created connection with ('127.0.0.1', 51622)!
+[INFO] Successfully created connection with ('127.0.0.1', 51631)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51622)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51631)
+[INFO] Successfully created connection with ('127.0.0.1', 51636)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51636)
+[INFO] Successfully created connection with ('127.0.0.1', 51657)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51657)
+[INFO] Successfully created connection with ('127.0.0.1', 51658)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51658)
+[INFO] Successfully created connection with ('127.0.0.1', 51664)!
+[INFO] Successfully created connection with ('127.0.0.1', 51665)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51665)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51664)
+[INFO] Successfully created connection with ('127.0.0.1', 51678)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51678)
+[INFO] Successfully created connection with ('127.0.0.1', 51679)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51679)
+[INFO] Successfully created connection with ('127.0.0.1', 51685)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51685)
+[INFO] Successfully created connection with ('127.0.0.1', 51686)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51686)
+[INFO] Successfully created connection with ('127.0.0.1', 51687)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51687)
+[INFO] Successfully created connection with ('127.0.0.1', 51690)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51690)
+[INFO] Successfully created connection with ('127.0.0.1', 51713)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 51713)
+[WinError 10048] Обычно разрешается только одно использование адреса сокета (протокол/сетевой адрес/порт)
+[INFO] Successfully created connection with ('127.0.0.1', 49584)!
+[INFO] Successfully created connection with ('127.0.0.1', 49593)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 49593)
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 49584)
+[INFO] Successfully created connection with ('127.0.0.1', 63692)!
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[WARNING] Got incorrect user(127.0.0.1) response: b''
+[INFO] Breaking connection with ('127.0.0.1', 63692)

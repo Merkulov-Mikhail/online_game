@@ -32,7 +32,8 @@ class Player(pygame.sprite.Sprite):
             self.shooting = 3
             self.events.append(EVENTS.LEFT_MOUSE_UP)
 
-        if (keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d])) or (keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d])):
+        if (keys[pygame.K_w] and (keys[pygame.K_a] or keys[pygame.K_d])) or \
+                (keys[pygame.K_s] and (keys[pygame.K_a] or keys[pygame.K_d])):
             self.events.append(EVENTS.DIAGONAL_MOVEMENT)
 
         if keys[pygame.K_w]:
@@ -142,6 +143,9 @@ def draw_entity(sc, ent):
     if typ == ENTITIES.BULLET_ID:
         pygame.draw.ellipse(sc, COLORS.BULLET,
                             (new_x, new_y, BULLET.BULLET_SIZE, BULLET.BULLET_SIZE))
+    if typ == ENTITIES.OBSTACLE_ID:
+        pygame.draw.rect(sc, COLORS.WHITE,
+                         (new_x, new_y, ent[3], ent[4]))
 
 
 def normalize(x, y):

@@ -1,6 +1,8 @@
 import socket
 import json
+
 import pygame.time
+from levelGenerator import Level
 from constants import NETWORK, GUNS
 from threading import Thread
 from random import randint
@@ -12,8 +14,6 @@ game_config = [0]
 all_events = []
 players = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
-collision_sprites = pygame.sprite.Group()
-all_sprites = pygame.sprite.Group()
 for ev in EVENTS.__dict__:
     if type(EVENTS.__dict__[ev]) == int:
         all_events.append(EVENTS.__dict__[ev])
@@ -23,19 +23,25 @@ def create_key():
     return sha256(bytes(randint(int(5e5), int(1e6))))
 
 
+def log_print(dat):
+    f = open("log.txt", "a")
+    f.write(dat + "\n")
+    f.close()
+
+
 class Server:
     def __init__(self):
         self._running = True
         self._connections = {}
 
     def _connection(self, connection, address):
-        print(f"[INFO] Successfully created connection with {address}!")
+        log_print(f"[INFO] Successfully created connection with {address}!")
         cnt = 0
         while True:
             try:
                 response = connection.recv(1024 * 2 ** 4)
             except Exception as e:
-                print(f"[WARNING] Error in connection {e}")
+                log_print(f"[WARNING] Error in connection {e}")
                 cnt += 1
                 if cnt == 10:
                     break
@@ -43,20 +49,20 @@ class Server:
             try:
                 data = json.loads(response.decode(encoding='utf-8'))
             except json.decoder.JSONDecodeError:
-                print(f"[WARNING] Got incorrect user({address[0]}) response: {response}")
+                log_print(f"[WARNING] Got incorrect user({address[0]}) response: {response}")
                 cnt += 1
                 if cnt == 10:
                     break
                 continue
             except Exception as e:
-                print(f"[WARNING] Error while receiving data from user ({e})")
+                log_print(f"[WARNING] Error while receiving data from user ({e})")
                 cnt += 1
                 if cnt == 10:
                     break
                 continue
             key = self._update(json_data=data)
             all_sprites_package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": [], "state": str(self._connections[key])}
-            for value in self._connections.values():
+            for value in all_sprites:
                 all_sprites_package["entities"].append(str(value))
             for bul in bullets:
                 bul: Server_Bullet
@@ -67,20 +73,24 @@ class Server:
                 if abs(bul.rect.y) >= 90000:
                     bullets.remove(bul)
                     continue
-                sprite = pygame.sprite.spritecollideany(bul, players)
+                sprite = pygame.sprite.spritecollideany(bul, all_sprites)
                 # sprite can be None or a class from serverSprites
                 if sprite:
                     if sprite.id() == ENTITIES.BULLET_ID:
                         sprite: Server_Bullet
                         bullets.remove(bul)
                         bullets.remove(sprite)
+                        all_sprites.remove(sprite)
                     if sprite.id() == ENTITIES.PLAYER_ID:
                         sprite: Server_Player
                         if bul.can_damage:
                             sprite.take_damage(bul.get_damage())
                             if not sprite.is_alive():
+                                all_sprites.remove(sprite)
                                 players.remove(sprite)
                             bullets.remove(bul)
+                    if sprite.id() == ENTITIES.OBSTACLE_ID:
+                        bullets.remove(bul)
                 else:
                     if not bul.can_damage:
                         bul.can_damage = True
@@ -88,14 +98,14 @@ class Server:
             try:
                 connection.send(bytes(json.dumps(all_sprites_package), encoding='utf-8'))
             except Exception as e:
-                print(f"[ERROR] An error acquired while sending data to {address[0]}")
-                print(e)
+                log_print(f"[ERROR] An error acquired while sending data to {address[0]}")
+                log_print(str(e))
                 cnt += 1
                 if cnt == 10:
                     break
             cnt = 0
 
-        print(f"[INFO] Breaking connection with {address}")
+        log_print(f"[INFO] Breaking connection with {address}")
         return
 
     def _update(self, json_data: dict):
@@ -127,7 +137,7 @@ class Server:
     def authentication(self, con, ad):
         while key := create_key().hexdigest():
             if key not in self._connections:
-                self._connections[key] = Server_Player(0, 0, gr=players)  # TODO rework this shit
+                self._connections[key] = Server_Player(10, 10, gr=players)  # TODO rework this shit
                 break
         package = {"type": NETWORK.CONTENT_TYPES.AUTH, NETWORK.AUTH_STRING: key}
         con.send(bytes(json.dumps(package), encoding='utf-8'))
@@ -149,8 +159,9 @@ class Server:
         try:
             sock.bind((NETWORK.ADDRESS, NETWORK.PORT))
         except socket.error as e:
-            print(e)
+            log_print(str(e))
         print(sock)
+        Level(randint(1400, 2000), randint(1400, 2000))
         sock.listen()
         _ = Thread(target=self.loop)
         _.start()
@@ -159,6 +170,9 @@ class Server:
             conn, addr = sock.accept()
             print(f"[CONNECT] New connection from {addr}!")
             self.authentication(conn, addr)
+
+    def generate_level(self, width, height):
+        Server_Obstacle(0, 0, width=width, height=height, fill=0, gr=collision_sprites)
 
 
 if __name__ == '__main__':
