@@ -3,15 +3,19 @@ import math
 from constants import PLAYER, ENTITIES, EVENTS, BULLET
 
 
+collision_sprites = pygame.sprite.Group()
+all_sprites = pygame.sprite.Group()
+
+
 class Server_Player(pygame.sprite.Sprite):
     """
     Represents every player on stage
     """
     def __init__(self, x, y, angle=90, health=100, gr=None):
         if gr is not None:
-            super().__init__(gr)
+            super().__init__(all_sprites, gr)
         else:
-            super().__init__()
+            super().__init__(all_sprites)
 
         self.rect = pygame.Rect(x, y, PLAYER.PLAYER_SIZE, PLAYER.PLAYER_SIZE)
         self.angle = angle
@@ -111,3 +115,31 @@ class Server_Bullet(pygame.sprite.Sprite):
 
     def __repr__(self):
         return f"{ENTITIES.BULLET_ID};{self.rect.x};{self.rect.y};{self.angle}"
+
+
+class Server_Obstacle(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, gr=None, fill=0):
+        if fill:
+            Server_Obstacle(x, y, 10, height, gr=gr)
+            Server_Obstacle(x, y, width, 10, gr=gr)
+            Server_Obstacle(x + width, y, 10, height, gr=gr)
+            Server_Obstacle(x, y + height, width, 10, gr=gr)
+            del self
+            return
+        if gr is not None:
+            super().__init__(all_sprites, collision_sprites, gr)
+        else:
+            super().__init__(all_sprites, collision_sprites)
+
+        print(x, y, width, height)
+        self.rect = pygame.Rect(x, y, width, height)
+        print(self.rect, self.rect.w, self.rect.h)
+
+    def id(self):
+        return ENTITIES.OBSTACLE_ID
+
+    def __str__(self):
+        return f"{self.id()};{self.rect.x};{self.rect.y};{self.rect.w};{self.rect.h}"
+
+    def __repr__(self):
+        return f"{self.id()};{self.rect.x};{self.rect.y};{self.rect.w};{self.rect.h}"

@@ -16,7 +16,7 @@ class NETWORK:
     """
     ADDRESS = "127.0.0.1"
     PORT = 5052
-    TPS = 10
+    TPS = 20
     AUTH_STRING = "AUTH_KEY"
 
     class CONTENT_TYPES:
@@ -28,7 +28,7 @@ class NETWORK:
 
 
 class GUNS:
-    ASSAULT_RIFLE_FIRE_RATE = 2
+    ASSAULT_RIFLE_FIRE_RATE = 4
 
 
 class ENTITIES:
@@ -38,11 +38,12 @@ class ENTITIES:
     IDS = 2000
     PLAYER_ID = IDS + 1
     BULLET_ID = IDS + 2
+    OBSTACLE_ID = IDS + 3
 
 
 class BULLET:
     BULLET_SIZE = 10
-    BULLET_SPEED = 30
+    BULLET_SPEED = 15
 
     BASIC_BULLET_DAMAGE = 20
 

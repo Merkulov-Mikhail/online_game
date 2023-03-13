@@ -142,6 +142,9 @@ def draw_entity(sc, ent):
     if typ == ENTITIES.BULLET_ID:
         pygame.draw.ellipse(sc, COLORS.BULLET,
                             (new_x, new_y, BULLET.BULLET_SIZE, BULLET.BULLET_SIZE))
+    if typ == ENTITIES.OBSTACLE_ID:
+        pygame.draw.rect(sc, COLORS.WHITE,
+                            (new_x, new_y, ent[3], ent[4]))
 
 
 def normalize(x, y):
