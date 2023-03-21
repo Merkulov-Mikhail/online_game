@@ -1,6 +1,7 @@
 import socket
 import json
 import pygame.time
+import random
 from Level import Level
 from constants import NETWORK, GUNS
 from threading import Thread
@@ -27,8 +28,9 @@ class Server:
     def __init__(self):
         self._running = True
         self._connections = {}
+        self.updater = None
 
-    def _connection(self, connection, address):
+    def _connection(self, connection, address, k):
         print(f"[INFO] Successfully created connection with {address}!")
         cnt = 0
         while True:
@@ -55,39 +57,43 @@ class Server:
                     break
                 continue
             key = self._update(json_data=data)
+            if not self._connections[key].is_alive():
+                break
             all_sprites_package = {"type": NETWORK.CONTENT_TYPES.UPDATE, "entities": [], "state": str(self._connections[key])}
             for value in all_sprites:
                 all_sprites_package["entities"].append(str(value))
             for bul in bullets:
                 bul: Server_Bullet
-                bul.move()
-                if abs(bul.rect.x) >= 90000:
-                    bullets.remove(bul)
-                    continue
-                if abs(bul.rect.y) >= 90000:
-                    bullets.remove(bul)
-                    continue
-                sprite = pygame.sprite.spritecollideany(bul, all_sprites)
-                # sprite can be None or a class from serverSprites
-                if sprite:
-                    if sprite.id() == ENTITIES.BULLET_ID:
-                        sprite: Server_Bullet
-                        bullets.remove(bul)
-                        bullets.remove(sprite)
-                    if sprite.id() == ENTITIES.PLAYER_ID:
-                        sprite: Server_Player
-                        if bul.can_damage:
-                            sprite.take_damage(bul.get_damage())
-                            if not sprite.is_alive():
-                                players.remove(sprite)
-                                all_sprites.remove(sprite)
-                            bullets.remove(bul)
-                    if sprite.id() == ENTITIES.OBSTACLE_ID:
-                        bullets.remove(bul)
-                else:
-                    if not bul.can_damage:
-                        bul.can_damage = True
                 all_sprites_package["entities"].append(str(bul))
+                if self.updater == key:
+                    bul.move()
+
+                    if abs(bul.rect.x) >= 90000:
+                        bullets.remove(bul)
+                        continue
+                    if abs(bul.rect.y) >= 90000:
+                        bullets.remove(bul)
+                        continue
+                    sprite = pygame.sprite.spritecollideany(bul, all_sprites)
+                    # sprite can be None or a class from serverSprites
+                    if sprite:
+                        if sprite.id() == ENTITIES.BULLET_ID:
+                            sprite: Server_Bullet
+                            bullets.remove(bul)
+                            bullets.remove(sprite)
+                        if sprite.id() == ENTITIES.PLAYER_ID:
+                            sprite: Server_Player
+                            if bul.can_damage:
+                                sprite.take_damage(bul.get_damage())
+                                if not sprite.is_alive():
+                                    players.remove(sprite)
+                                    all_sprites.remove(sprite)
+                                bullets.remove(bul)
+                        if sprite.id() == ENTITIES.OBSTACLE_ID:
+                            bullets.remove(bul)
+                    else:
+                        if not bul.can_damage:
+                            bul.can_damage = True
             try:
                 connection.send(bytes(json.dumps(all_sprites_package), encoding='utf-8'))
             except Exception as e:
@@ -97,7 +103,7 @@ class Server:
                 if cnt == 10:
                     break
             cnt = 0
-
+        del self._connections[k]
         print(f"[INFO] Breaking connection with {address}")
         return
 
@@ -134,7 +140,7 @@ class Server:
                 break
         package = {"type": NETWORK.CONTENT_TYPES.AUTH, NETWORK.AUTH_STRING: key}
         con.send(bytes(json.dumps(package), encoding='utf-8'))
-        _ = Thread(target=self._connection, args=(con, ad))
+        _ = Thread(target=self._connection, args=(con, ad, key))
         _.start()
 
     def loop(self):
@@ -145,6 +151,8 @@ class Server:
         cl = pygame.time.Clock()
         while True:
             game_config[0] += 1
+            if self._connections:
+                self.updater = random.choice(tuple(self._connections.keys()))
             cl.tick(NETWORK.TPS)
 
     def start(self):

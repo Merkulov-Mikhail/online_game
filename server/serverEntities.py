@@ -27,11 +27,11 @@ class Server_Player(pygame.sprite.Sprite):
 
     def move(self, direction, collision_objects):
         if self.sprinting:
-            val = PLAYER.MOVEMENT_SPEED * PLAYER.SPRINT_MULTIPLIER
+            val = int(PLAYER.MOVEMENT_SPEED * PLAYER.SPRINT_MULTIPLIER)
         else:
             val = PLAYER.MOVEMENT_SPEED
         if self.diagonal_movement:
-            val *= PLAYER.DIAGONAL_MULTIPLIER
+            val = int(val * PLAYER.DIAGONAL_MULTIPLIER)
         if direction == EVENTS.UP:
             self.rect.y -= val
             if pygame.sprite.spritecollideany(self, collision_objects):
@@ -47,7 +47,7 @@ class Server_Player(pygame.sprite.Sprite):
                 self.rect.x += val
         if direction == EVENTS.RIGHT:
             self.rect.x += val
-            if pygame.sprite.spritecollideany(self, collision_objects):
+            if sp:=pygame.sprite.spritecollideany(self, collision_objects):
                 self.rect.x -= val
 
     def fire(self, tick, fire_rate):
@@ -99,6 +99,7 @@ class Server_Bullet(pygame.sprite.Sprite):
         self.angle = angle
         self.spawn_point = x + PLAYER.PLAYER_SIZE / 2, y + PLAYER.PLAYER_SIZE / 2
         self.can_damage = False
+        self.last_move = 0
 
     def id(self):
         return ENTITIES.BULLET_ID
@@ -131,9 +132,7 @@ class Server_Obstacle(pygame.sprite.Sprite):
         else:
             super().__init__(all_sprites, collision_sprites)
 
-        print(x, y, width, height)
         self.rect = pygame.Rect(x, y, width, height)
-        print(self.rect, self.rect.w, self.rect.h)
 
     def id(self):
         return ENTITIES.OBSTACLE_ID

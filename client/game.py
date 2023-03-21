@@ -1,6 +1,6 @@
 import pygame
 import math
-from constants import PLAYER, COLORS, SCREEN, EVENTS, NETWORK, ENTITIES, BULLET
+from constants import PLAYER, COLORS, SCREEN, EVENTS, NETWORK, ENTITIES, BULLET, GAME_DEFAULTS
 from network import Network
 from camera import Camera
 
@@ -56,8 +56,9 @@ def main():
     net = Network()
     mouse_position = 0, 0
     camera.update(pl, mouse_position)
+    cnt = 0
+    obj = None
     while True:
-        screen.fill(COLORS.DARKNESS_COLOR)
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 return
@@ -69,11 +70,17 @@ def main():
             if ev.type == pygame.MOUSEBUTTONUP:
                 if ev.button == 1:
                     pl.shooting = 2     # Stopped shooting
+
         angle = calculate_angle(pl, mouse_position)
-        net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events, angle=angle)
         camera.update(pl, mouse_position)
-        pl.events.clear()
-        obj = net.receive_data()
+        if cnt % (GAME_DEFAULTS.FPS // NETWORK.TPS) == 0:
+            screen.fill(COLORS.DARKNESS_COLOR)
+            try:
+                net.send_data(message_type=NETWORK.CONTENT_TYPES.UPDATE, events=pl.events, angle=angle)
+            except WindowsError:
+                return
+            pl.events.clear()
+            obj = net.receive_data()
         if obj is not None:
             if obj['type'] == NETWORK.CONTENT_TYPES.UPDATE:
                 for entity in obj['entities']:
@@ -81,10 +88,10 @@ def main():
                 dat = obj['state'].split(';')
                 pl.rect.x = float(dat[1])
                 pl.rect.y = float(dat[2])
-
+        cnt += 1
         pl.update()
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(GAME_DEFAULTS.FPS)
 
 
 def loading_screen():
@@ -92,12 +99,12 @@ def loading_screen():
         for ev in pygame.event.get():
             if ev.type == pygame.MOUSEBUTTONUP:
                 print(ev.pos)
-
+            if ev.type == pygame.KEYDOWN:
+                return
         pygame.display.flip()
 
 
 def calculate_angle(player, cursor):
-    global g
     x, y = normalize(player.rect.x + PLAYER.PLAYER_SIZE / 2, player.rect.y + PLAYER.PLAYER_SIZE / 2)
     x1, y1 = cursor[0], cursor[1]
     ab = abs(y1 - y)
@@ -152,8 +159,9 @@ def normalize(x, y):
     return x + a, y + b
 
 
-g = 0
+loading_screen()
 pygame.init()
 main()
+from game_over import *
 pygame.quit()
 exit()

@@ -15,8 +15,8 @@ class NETWORK:
     Contains most information about network - address, using port, possible types of package
     """
     ADDRESS = "127.0.0.1"
-    PORT = 5052
-    TPS = 20
+    PORT = 5053
+    TPS = 60
     AUTH_STRING = "AUTH_KEY"
 
     class CONTENT_TYPES:
@@ -28,7 +28,7 @@ class NETWORK:
 
 
 class GUNS:
-    ASSAULT_RIFLE_FIRE_RATE = 4
+    ASSAULT_RIFLE_FIRE_RATE = 8
 
 
 class ENTITIES:
@@ -85,6 +85,7 @@ class EVENTS:
 
 class GAME_DEFAULTS:
     DEBUG = True
+    FPS = 144
 
 
 class PLAYER:
