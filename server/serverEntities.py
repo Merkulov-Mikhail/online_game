@@ -1,6 +1,6 @@
 import pygame
+from constants import PLAYER, EVENTS, ENTITIES, BULLET
 import math
-from constants import PLAYER, ENTITIES, EVENTS, BULLET
 
 
 all_sprites = pygame.sprite.Group()

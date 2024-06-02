@@ -1,7 +1,7 @@
 import pygame
 import sys
 import os
-from serverEntities import collision_sprites, Server_Obstacle
+from server.serverEntities import collision_sprites, Server_Obstacle
 
 
 class Level:
@@ -20,4 +20,4 @@ class Level:
         self.choose_structure()
 
     def choose_structure(self):
-        print(os.listdir("structures"))
+        print(os.listdir("server/structures"))

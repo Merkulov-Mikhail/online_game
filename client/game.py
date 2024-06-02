@@ -1,8 +1,8 @@
 import pygame
 import math
 from constants import PLAYER, COLORS, SCREEN, EVENTS, NETWORK, ENTITIES, BULLET
-from network import Network
-from camera import Camera
+from client.network import Network
+from client.camera import Camera
 
 
 camera = Camera()
@@ -98,7 +98,6 @@ def loading_screen():
 
 
 def calculate_angle(player, cursor):
-    global g
     x, y = normalize(player.rect.x + PLAYER.PLAYER_SIZE / 2, player.rect.y + PLAYER.PLAYER_SIZE / 2)
     x1, y1 = cursor[0], cursor[1]
     ab = abs(y1 - y)
@@ -153,8 +152,8 @@ def normalize(x, y):
     return x + a, y + b
 
 
-g = 0
-pygame.init()
-main()
-pygame.quit()
-exit()
+if __name__ == "__main__":
+    pygame.init()
+    main()
+    pygame.quit()
+    exit()

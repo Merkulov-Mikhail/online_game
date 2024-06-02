@@ -2,12 +2,13 @@ import socket
 import json
 
 import pygame.time
-from levelGenerator import Level
+
 from constants import NETWORK, GUNS
+from server.serverEntities import *
+from server.levelGenerator import Level
 from threading import Thread
 from random import randint
 from hashlib import sha256
-from serverEntities import *
 
 
 game_config = [0]
@@ -33,6 +34,7 @@ class Server:
     def __init__(self):
         self._running = True
         self._connections = {}
+        self._port = NETWORK.PORT
 
     def _connection(self, connection, address):
         log_print(f"[INFO] Successfully created connection with {address}!")
@@ -156,10 +158,13 @@ class Server:
 
     def start(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            sock.bind((NETWORK.ADDRESS, NETWORK.PORT))
-        except socket.error as e:
-            log_print(str(e))
+        while self._port > 10:
+            self._port = (self._port + 1) % (1 << 16)
+            try:
+                sock.bind((NETWORK.ADDRESS, self._port))
+                break
+            except socket.error as e:
+                log_print(str(e))
         print(sock)
         Level(randint(1400, 2000), randint(1400, 2000))
         sock.listen()
@@ -173,8 +178,3 @@ class Server:
 
     def generate_level(self, width, height):
         Server_Obstacle(0, 0, width=width, height=height, fill=0, gr=collision_sprites)
-
-
-if __name__ == '__main__':
-    a = Server()
-    a.start()
